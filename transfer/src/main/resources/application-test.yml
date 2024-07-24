@@ -1,0 +1,32 @@
+server:
+  port: ${SERVER_PORT:18084}
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:transfer-service}
+  datasource:
+    driver-class-name: ${DB_DRIVER:org.testcontainers.jdbc.ContainerDatabaseDriver}
+    url: ${DB_URL:jdbc:tc:mysql:8.0.29:///transfer}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:P@ssw0rd$}
+  sql:
+    init:
+      mode: always   #시작시 테이블 존재 체크하고 없으면 생성
+      schema-locations: classpath:schema.sql  #Table 생성 SLQ
+
+mybatis:
+  type-aliases-package: com.subride.transfer.persistent.entity
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-handlers-package: com.subride.transfer.persistent.typehandler
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+jwt:
+  secret: ${JWT_SECRET:8O2HQ13etL2BWZvYOiWsJ5uWFoLi6NBUG8divYVoCgtHVvlk3dqRksMl16toztDUeBTSIuOOPvHIrYq11G2BwQ==}
+
+# Logging
+logging:
+  level:
+    root: INFO
+    org.mybatis: TRACE
+
